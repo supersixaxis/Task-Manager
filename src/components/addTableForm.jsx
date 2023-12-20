@@ -13,7 +13,7 @@ const AddTableForm = ({ onAddTable }) => {
     if (newTableTitle.trim() !== '') {
       onAddTable(newTableTitle);
       setNewTableTitle('');
-    } else alert("Veuiller renseigner le formulaire")
+    } else alert("Veuillez renseigner le formulaire")
   };
 
   return (
