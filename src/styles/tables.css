@@ -1,0 +1,20 @@
+.tablesContainer{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    
+}
+.tablesContainer h2 {
+    font-size: 18px;
+    font-weight: 300;
+    margin-left: 10px;
+}
+.table{
+    width: 300px;
+    height: 200px;
+    background-color: rgb(184, 184, 184);
+}
+.tablesListContainer{
+    display: flex;
+    gap: 5px;
+}
