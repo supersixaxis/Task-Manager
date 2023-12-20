@@ -8,36 +8,22 @@ import SelectTableDelete from './SelectTableDelete';
 function Tables() {
   const [tablesList, setTablesList] = useState([
     {
-      id: 1,
+      id: '1',
       title: 'Projet ressource',
     },
     {
-      id: 2,
+      id: '2',
       title: 'Sujet de la prochaine réunion',
     },
     {
-      id: 3,
+      id: '3',
       title: 'A faire',
     },
     {
-      id: 4,
+      id: '4',
       title: 'En cours',
     },
   ]);
-
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleSelectChange = (selectedValue) => {
-    setSelectedOption(selectedValue);
-  };
-
-  const handleDeleteButtonClick = () => {
-    if (selectedOption) {
-      const updatedTablesList = tablesList.filter((table) => table.id !== selectedOption);
-      setTablesList(updatedTablesList);
-      setSelectedOption(null);
-    }
-  };
 
   const addTable = (newTableTitle) => {
     const newTable = {
@@ -46,15 +32,17 @@ function Tables() {
     };
     setTablesList((prevTablesList) => [...prevTablesList, newTable]);
   };
+  const deleteTable = (id) => {
+    let newtable = [...tablesList].filter((tab) => tab.id.toString() !== id.toString())
+    setTablesList(newtable)
+  };
 
   return (
     <div className="tablesContainer">
       <AddTableForm onAddTable={addTable} />
       <SelectTableDelete
-        options={tablesList}
-        selectedOption={selectedOption}
-        onSelectChange={handleSelectChange}
-        onDeleteButtonClick={handleDeleteButtonClick}
+        deleteTable={deleteTable}
+        tables={tablesList}
       />
       <div className='tablesListContainer'>
         {tablesList.map((table, index) => (

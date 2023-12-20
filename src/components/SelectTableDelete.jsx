@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SelectTableDelete = ({ options, selectedOption, onSelectChange, onDeleteButtonClick }) => {
+
+
+const SelectTableDelete = ({ tables, deleteTable }) => {
+  const [idTableSelected, setIdTableSelected] = useState(0)
   return (
-    <div>
-      <label>Select an option:</label>
-      <select value={selectedOption || ''} onChange={(e) => onSelectChange(e.target.value)}>
-        {options.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.title}
+    
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        if(idTableSelected.toString() === '0') {
+           alert('Veuiller sélectionner un tableau à supprimer')
+        }
+        deleteTable(idTableSelected)
+        setIdTableSelected('0')
+      }}>
+        <label>Supprimer un tableau</label>
+      <select  value={idTableSelected} onChange={(e) => setIdTableSelected(e.target.value)}>
+      <option value={0}>---</option>
+        {tables.map((table) => (
+          <option key={table.id} value={table.id}>
+            {table.title}
           </option>
         ))}
       </select>
-      <button onClick={onDeleteButtonClick}>Delete</button>
-    </div>
+      <button onSubmit={deleteTable}>Delete</button>
+      </form>
+    
+      
   );
 };
 
