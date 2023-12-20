@@ -12,9 +12,21 @@
 .table{
     width: 300px;
     height: 200px;
-    background-color: rgb(184, 184, 184);
+    background-color: rgb(233, 233, 233);
 }
 .tablesListContainer{
     display: flex;
     gap: 5px;
+}
+.taskContainer{
+    background-color: rgb(170, 170, 170);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+.taskButton{
+
 }
