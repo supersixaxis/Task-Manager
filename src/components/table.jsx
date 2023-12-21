@@ -1,9 +1,21 @@
-// Table.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import Task from './Task';
+import EditTableTitleForm from './EditTableTitleForm';
 
-export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStart }) {
+export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStart, editTask, editTableTitle }) {
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const tasksForTable = tasks.filter((task) => task.tableId === table.id);
+
+  const handleClick = (e) => {
+    if (e.target.className === 'tableTitle') {
+      setIsEditingTitle(true);
+    }
+  };
+
+  const handleEditTitleComplete = (newTitle) => {
+    editTableTitle(table.id, newTitle);
+    setIsEditingTitle(false);
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -21,12 +33,16 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
   };
 
   return (
-    <div
-      className="table"
-      onDrop={handleDrop}
-      onDragOver={allowDrop}
-    >
-      <p>{table.title}</p>
+    <div className="table" onDrop={handleDrop} onDragOver={allowDrop} onClick={handleClick}>
+      {isEditingTitle ? (
+        <EditTableTitleForm
+          tableId={table.id}
+          initialTitle={table.title}
+          onEditComplete={handleEditTitleComplete}
+        />
+      ) : (
+        <p className="tableTitle">{table.title}</p>
+      )}
 
       {tasksForTable.map((task) => (
         <Task
@@ -34,6 +50,7 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
           task={task}
           deleteTask={() => deleteTask(task.id)}
           onDragStart={(e) => onDragStart(e, task)}
+          editTask={editTask}
         />
       ))}
     </div>

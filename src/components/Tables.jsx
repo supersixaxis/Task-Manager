@@ -1,4 +1,3 @@
-// Tables.jsx
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import '../styles/tables.css';
@@ -74,16 +73,23 @@ function Tables() {
   };
 
   const handleTaskDrop = (droppedTask, newTableId) => {
-    // Mise à jour du tableauId de la tâche déposée
     const updatedTask = { ...droppedTask, tableId: newTableId };
-
-    // Mise à jour de la liste des tâches
     const updatedTasks = tasks.map((task) =>
       task.id === updatedTask.id ? updatedTask : task
     );
-
-    // Mise à jour de l'état avec la nouvelle liste de tâches
     setTasks(updatedTasks);
+  };
+  const editTask = (taskId, newTitle) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, title: newTitle } : task
+    );
+    setTasks(updatedTasks);
+  };
+  const editTableTitle = (taskId, newTitle) => {
+    const updatedTab = tablesList.map((table) =>
+      table.id === taskId ? { ...table, title: newTitle } : table
+    );
+    setTablesList(updatedTab);
   };
 
   return (
@@ -104,8 +110,10 @@ function Tables() {
             deleteTask={deleteTask}
             onTaskDrop={handleTaskDrop}
             onDragStart={(e, task) => {
-              e.dataTransfer.setData('taskId', task.id);
+              e.dataTransfer.setData('taskId', task.id);   
             }}
+            editTask={editTask}
+            editTableTitle={editTableTitle}
   
           />
         ))}
