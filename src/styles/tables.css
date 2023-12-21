@@ -28,5 +28,7 @@
     margin: auto;
 }
 .taskButton{
-
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
 }
