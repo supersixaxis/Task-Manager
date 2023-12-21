@@ -60,6 +60,10 @@ function Tables() {
     };
     setTasks((prevTasks) => [...prevTasks, newTaskObject]);
   };
+  const deleteTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+  };
 
   return (
     <div className="tablesContainer">
@@ -74,7 +78,7 @@ function Tables() {
       />
       <div className='tablesListContainer'>
         {tablesList.map((table, index) => (
-          <Table key={index} table={table} tasks={tasks} />
+          <Table key={index} table={table} tasks={tasks} deleteTask={deleteTask} />
         ))}
       </div>
     </div>

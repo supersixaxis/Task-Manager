@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 export default function HomePage() {
 
+  const navigate = useNavigate()
+
+  useEffect(()=>{
     let connected = localStorage.getItem('connected')
+
     if(!connected){
-        return useNavigate('/login')
+      return navigate('/login')
     }
+  }, [])
   return (
     <div>
         <Link to="/login" className="btnNav">Login</Link>
