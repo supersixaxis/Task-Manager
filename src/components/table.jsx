@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Task from './Task';
 import EditTableTitleForm from './EditTableTitleForm';
-
-export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStart, editTask, editTableTitle }) {
+import FormAddTask from './FormAddTask';
+export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStart, editTask, editTableTitle, addTaskTable }) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const tasksForTable = tasks.filter((task) => task.tableId === table.id);
 
@@ -53,6 +53,7 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
           editTask={editTask}
         />
       ))}
+      <FormAddTask addTaskTable={addTaskTable} tableId={table.id} />
     </div>
   );
 }

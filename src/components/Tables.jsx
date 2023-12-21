@@ -4,7 +4,6 @@ import '../styles/tables.css';
 import Table from './Table';
 import AddTableForm from './AddTableForm';
 import SelectTableDelete from './SelectTableDelete';
-import FormAddTask from './FormAddTask';
 
 function Tables() {
   const [tablesList, setTablesList] = useState([
@@ -94,11 +93,6 @@ function Tables() {
 
   return (
     <div className="tablesContainer">
-      <FormAddTask
-        tasks={tasks}
-        tables={tablesList}
-        addTaskTable={addTaskTable}
-      />
       <AddTableForm onAddTable={addTable} />
       <SelectTableDelete deleteTable={deleteTable} tables={tablesList} />
       <div className="tablesListContainer">
@@ -114,8 +108,10 @@ function Tables() {
             }}
             editTask={editTask}
             editTableTitle={editTableTitle}
+            addTaskTable={(tableId, newTask) => addTaskTable(tableId, newTask)}
   
           />
+          
         ))}
       </div>
     </div>
