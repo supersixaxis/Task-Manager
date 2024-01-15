@@ -1,4 +1,4 @@
-import './styles/App.css';
+import './styles/app.css';
 import Tables from './components/Tables'
 import {Routes, Route} from 'react-router-dom'
 import HomePage from './components/HomePage';
