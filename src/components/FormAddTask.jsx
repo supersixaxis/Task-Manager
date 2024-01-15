@@ -14,13 +14,10 @@ export default function FormAddTask({ addTaskTable, tableId }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (newTableTask.trim() === "") {
-              //alert('Veuillez entrer un nom de tâche valide');
-            } else {
               addTaskTable(tableId, newTableTask);
               setNewTableTask('');
               setPopinVisible(false);
-            }
+            
           }}
         >
           <label>Ajouter une tâche au tableau</label>

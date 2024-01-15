@@ -81,7 +81,7 @@ function Tables() {
 }
 
   const addTable = (newTableTitle) => {
-    if (newTableTitle.trim() === '') {
+    if (newTableTitle == '') {
       displayMessage('error', 'Veuillez remplir le titre de la table.');
       return;
     }
@@ -103,7 +103,7 @@ function Tables() {
   };
   
   const addTaskTable = (tableId, taskContent) => {
-    if (taskContent.trim() === '') {
+    if (taskContent == '') {
       displayMessage('error', 'Veuillez remplir le titre de la tâche.');
       return;
     }
@@ -125,6 +125,7 @@ const deleteTask = (taskId) => {
       return draft.filter((task) => task.id !== taskId);
     })
   );
+  displayMessage('success', 'Tâche supprimée avec succès.');
 };
   const handleTaskDrop = (droppedTask, newTableId) => {
     const updatedTask = { ...droppedTask, tableId: newTableId };
@@ -142,6 +143,7 @@ const deleteTask = (taskId) => {
         }
       })
     );
+    displayMessage('success', 'Tâche modifiée avec succès.');
   };
 
   const editTableTitle = (taskId, newTitle) => {
@@ -149,6 +151,7 @@ const deleteTask = (taskId) => {
       table.id === taskId ? { ...table, title: newTitle } : table
     );
     setTablesList(updatedTab);
+    displayMessage('success', 'Tableau modifié avec succès.');
   };
 
   const [message, setMessage] = useState(null);
