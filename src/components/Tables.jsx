@@ -107,11 +107,13 @@ function Tables() {
     setTasks(nt)
   };
 
-  const deleteTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(updatedTasks);
-  };
-
+const deleteTask = (taskId) => {
+  setTasks(
+    produce((draft) => {
+      return draft.filter((task) => task.id !== taskId);
+    })
+  );
+};
   const handleTaskDrop = (droppedTask, newTableId) => {
     const updatedTask = { ...droppedTask, tableId: newTableId };
     const updatedTasks = tasks.map((task) =>
@@ -120,11 +122,16 @@ function Tables() {
     setTasks(updatedTasks);
   };
   const editTask = (taskId, newTitle) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, title: newTitle } : task
+    setTasks(
+      produce((draft) => {
+        const taskIndex = draft.findIndex((task) => task.id === taskId);
+        if (taskIndex !== -1) {
+          draft[taskIndex].title = newTitle;
+        }
+      })
     );
-    setTasks(updatedTasks);
   };
+  
   const editTableTitle = (taskId, newTitle) => {
     const updatedTab = tablesList.map((table) =>
       table.id === taskId ? { ...table, title: newTitle } : table
