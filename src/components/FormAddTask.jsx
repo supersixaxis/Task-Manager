@@ -15,7 +15,7 @@ export default function FormAddTask({ addTaskTable, tableId }) {
           onSubmit={(e) => {
             e.preventDefault();
             if (newTableTask.trim() === "") {
-              alert('Veuillez entrer un nom de tâche valide');
+              //alert('Veuillez entrer un nom de tâche valide');
             } else {
               addTaskTable(tableId, newTableTask);
               setNewTableTask('');

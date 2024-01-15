@@ -4,6 +4,7 @@ import '../styles/tables.css';
 import Table from './Table';
 import AddTableForm from './AddTableForm';
 import SelectTableDelete from './SelectTableDelete';
+import Message from './Message';
 import {produce} from 'immer'
 function Tables() {
   const [tablesList, setTablesList] = useState([
@@ -80,12 +81,17 @@ function Tables() {
 }
 
   const addTable = (newTableTitle) => {
+    if (newTableTitle.trim() === '') {
+      displayMessage('error', 'Veuillez remplir le titre de la table.');
+      return;
+    }
     const newTable = {
       id: uuidv4(),
       title: newTableTitle,
       order: tablesList.length + 1
     };
     setTablesList((prevTablesList) => [...prevTablesList, newTable]);
+    displayMessage('success', 'Table ajoutée avec succès.');
   };
 
   const deleteTable = (id) => {
@@ -93,18 +99,24 @@ function Tables() {
       (table) => table.id.toString() !== id.toString()
     );
     setTablesList(newTable);
+    displayMessage('success', 'Table supprimée avec succès.');
   };
-
+  
   const addTaskTable = (tableId, taskContent) => {
-   let nt = produce(tasks, function(tasksDraft){
+    if (taskContent.trim() === '') {
+      displayMessage('error', 'Veuillez remplir le titre de la tâche.');
+      return;
+    }
+    let nt = produce(tasks, function (tasksDraft) {
       let newTask = {
         id: uuidv4(),
         title: taskContent,
         tableId: tableId,
-      }
-      tasksDraft.push(newTask)
-    })
-    setTasks(nt)
+      };
+      tasksDraft.push(newTask);
+    });
+    setTasks(nt);
+    displayMessage('success', 'Tâche ajoutée avec succès.');
   };
 
 const deleteTask = (taskId) => {
@@ -131,7 +143,7 @@ const deleteTask = (taskId) => {
       })
     );
   };
-  
+
   const editTableTitle = (taskId, newTitle) => {
     const updatedTab = tablesList.map((table) =>
       table.id === taskId ? { ...table, title: newTitle } : table
@@ -139,10 +151,20 @@ const deleteTask = (taskId) => {
     setTablesList(updatedTab);
   };
 
+  const [message, setMessage] = useState(null);
+
+  const displayMessage = (type, content) => {
+    setMessage({ type, content });
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000); // Supprime le message après 3 secondes
+  };
+
   return (
     <div className="tablesContainer">
       <AddTableForm onAddTable={addTable} />
       <SelectTableDelete deleteTable={deleteTable} tables={tablesList} />
+      {message && <Message type={message.type} content={message.content} />}
       <div className="tablesListContainer">
         {tablesList.sort((a, b)=> (a.order > b.order ? 1 : -1)).map((table, index) => (
           <Table

@@ -41,6 +41,7 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
     onDragStart={(e)=>{
       e.dataTransfer.setData('id_table_drag', table.id)
       e.dataTransfer.setData('order_table_drag', table.order)
+    
     }} 
     onDrop={handleDrop} onDragOver={allowDrop} onClick={handleClick}>
       {isEditingTitle ? (

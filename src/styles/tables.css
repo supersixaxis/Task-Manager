@@ -36,3 +36,20 @@
     cursor: pointer;
     font-size: 20px;
 }
+
+.errorMessage {
+    background-color: #ffaaaa;
+  }
+  
+  .successMessage {
+    background-color: #aaffaa;
+  }
+  
+  .displayMessage {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+  }
