@@ -4,7 +4,7 @@ import '../styles/tables.css';
 import Table from './Table';
 import AddTableForm from './AddTableForm';
 import SelectTableDelete from './SelectTableDelete';
-
+import {produce} from 'immer'
 function Tables() {
   const [tablesList, setTablesList] = useState([
     {
@@ -83,6 +83,7 @@ function Tables() {
     const newTable = {
       id: uuidv4(),
       title: newTableTitle,
+      order: tablesList.length + 1
     };
     setTablesList((prevTablesList) => [...prevTablesList, newTable]);
   };
@@ -94,13 +95,16 @@ function Tables() {
     setTablesList(newTable);
   };
 
-  const addTaskTable = (tableId, newTask) => {
-    const newTaskObject = {
-      id: uuidv4(),
-      title: newTask,
-      tableId: tableId,
-    };
-    setTasks((prevTasks) => [...prevTasks, newTaskObject]);
+  const addTaskTable = (tableId, taskContent) => {
+   let nt = produce(tasks, function(tasksDraft){
+      let newTask = {
+        id: uuidv4(),
+        title: taskContent,
+        tableId: tableId,
+      }
+      tasksDraft.push(newTask)
+    })
+    setTasks(nt)
   };
 
   const deleteTask = (taskId) => {
