@@ -22,7 +22,10 @@ export default function Task({ task, deleteTask, onDragStart, editTask }) {
       draggable="true"
       onDragStart={handleDragStart}
       className="taskContainer"
-      onClick={handleClick}
+      onClick={(e)=>{
+        e.stopPropagation()
+        setIsEditing(true);
+      }}
     >
       {isEditing ? (
         <EditTaskForm
