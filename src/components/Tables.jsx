@@ -7,13 +7,6 @@ import { useSelector } from 'react-redux';
 function Tables() {
   const tablesList = useSelector((state) => state.table.tablesList);
   const tasks = useSelector((state) => state.task.taskList);
-  const handleTaskDrop = (droppedTask, newTableId) => {
-    const updatedTask = { ...droppedTask, tableId: newTableId };
-    const updatedTasks = tasks.map((task) =>
-      task.id === updatedTask.id ? updatedTask : task
-    );
-    setTasks(updatedTasks);
-  };
 
   return (
     <div className="tablesContainer">
@@ -26,7 +19,6 @@ function Tables() {
        key={index}
        table={table}
        tasks={tasks}
-       onTaskDrop={handleTaskDrop}
        onDragStart={(e, task) => {
          e.dataTransfer.setData('taskId', task.id);   
        }}

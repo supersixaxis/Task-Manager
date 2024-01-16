@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { editTask } from '../redux/task/TaskSlice';
 import { store } from '../redux/Store';
-export default function EditTaskForm({  initialTitle, taskId}) {
+export default function EditTaskForm({  initialTitle, taskId, setIsEditing}) {
   const [editedTaskTitle, setEditedTaskTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
 
@@ -10,6 +10,7 @@ export default function EditTaskForm({  initialTitle, taskId}) {
     console.log('Task ID:', taskId);
     console.log('Edited Task Title:', editedTaskTitle);
     store.dispatch(editTask({ taskId, newTitle: editedTaskTitle  }));
+    setIsEditing(false)
     setPopinVisible(false);
   };
 

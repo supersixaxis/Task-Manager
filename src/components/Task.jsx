@@ -3,13 +3,12 @@ import EditTaskForm from './EditTaskForm';
 import { deleteTask} from '../redux/task/TaskSlice';
 import { store } from '../redux/Store';
 import { showMessage } from '../utils/MessageUtils';
-export default function Task({ task, onDragStart,  }) {
+export default function Task({ task, onDragStart  }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDragStart = (e) => {
     onDragStart(e, task);
   };
-  console.log(task)
   return (
     <div
       draggable="true"
@@ -24,6 +23,7 @@ export default function Task({ task, onDragStart,  }) {
         <EditTaskForm
           taskId={task.id}
           initialTitle={task.title}
+          setIsEditing={setIsEditing}
         />
       ) : (
         <>

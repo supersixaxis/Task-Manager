@@ -16,6 +16,7 @@ const SelectTableDelete = ({ tables }) => {
       return;
     }
     store.dispatch(deleteTable(idTableSelected));
+    showMessage('Tableau supprimé !', 'success');
     setIdTableSelected(0);
     setPopinVisible(false);
   };

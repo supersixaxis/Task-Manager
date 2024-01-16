@@ -4,11 +4,11 @@ import EditTableTitleForm from './EditTableTitleForm';
 import FormAddTask from './FormAddTask';
 import { moveTable, editTableTitle } from '../redux/table/TableSlice';
 import { store } from '../redux/Store';
+import { moveTask } from '../redux/task/TaskSlice';
 import { showMessage } from '../utils/MessageUtils';
 export default function Table({
   table,
   tasks,
-  onTaskDrop,
   onDragStart,
 }) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
@@ -34,7 +34,7 @@ export default function Table({
     let id_table_drag = e.dataTransfer.getData('id_table_drag');
     const order_table_drag = e.dataTransfer.getData('order_table_drag');
     if (droppedTask) {
-      onTaskDrop(droppedTask, table.id);
+      store.dispatch(moveTask({droppedTask, newTableId: table.id}));
     } else if (id_table_drag) {
       // J'ai droppé un tableau
       store.dispatch(moveTable({ id_table_drag, order_table_drag, id_table_drop: table.id, order_table_drop: table.order }));
