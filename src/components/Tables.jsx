@@ -6,6 +6,9 @@ import AddTableForm from './AddTableForm';
 import SelectTableDelete from './SelectTableDelete';
 import Message from './Message';
 import {produce} from 'immer'
+import { useSelector } from 'react-redux';
+import { displayMessage, hideMessage } from '../redux/message/MessageSlice';
+import { store } from '../redux/store';
 function Tables() {
   const [tablesList, setTablesList] = useState([
     {
@@ -82,7 +85,10 @@ function Tables() {
 
   const addTable = (newTableTitle) => {
     if (newTableTitle == '') {
-      displayMessage('error', 'Veuillez remplir le titre de la table.');
+       store.dispatch(displayMessage({content: 'Veuillez remplir le nom de votre tableau !', typeMessage: 'error'}));
+    setTimeout(() => {
+      store.dispatch(hideMessage());
+    }, 3000);
       return;
     }
     const newTable = {
@@ -91,7 +97,10 @@ function Tables() {
       order: tablesList.length + 1
     };
     setTablesList((prevTablesList) => [...prevTablesList, newTable]);
-    displayMessage('success', 'Table ajoutée avec succès.');
+    store.dispatch(displayMessage({content: 'Table ajouté avec succès !', typeMessage: 'success'}));
+    setTimeout(() => {
+      store.dispatch(hideMessage());
+    }, 3000);
   };
 
   const deleteTable = (id) => {
@@ -99,12 +108,18 @@ function Tables() {
       (table) => table.id.toString() !== id.toString()
     );
     setTablesList(newTable);
-    displayMessage('success', 'Table supprimée avec succès.');
+    store.dispatch(displayMessage({content: 'Table supprimée avec succès !', typeMessage: 'success'}));
+    setTimeout(() => {
+      store.dispatch(hideMessage());
+    }, 3000);
   };
   
   const addTaskTable = (tableId, taskContent) => {
     if (taskContent == '') {
-      displayMessage('error', 'Veuillez remplir le titre de la tâche.');
+      store.dispatch(displayMessage({content: 'Veuillez remplir le nom de votre tâche !', typeMessage: 'error'}));
+      setTimeout(() => {
+        store.dispatch(hideMessage());
+      }, 3000);
       return;
     }
     let nt = produce(tasks, function (tasksDraft) {
@@ -116,7 +131,10 @@ function Tables() {
       tasksDraft.push(newTask);
     });
     setTasks(nt);
-    displayMessage('success', 'Tâche ajoutée avec succès.');
+    store.dispatch(displayMessage({content: 'Tâche ajoutée avec succès !', typeMessage: 'success'}));
+    setTimeout(() => {
+      store.dispatch(hideMessage());
+    }, 3000);
   };
 
 const deleteTask = (taskId) => {
@@ -125,7 +143,10 @@ const deleteTask = (taskId) => {
       return draft.filter((task) => task.id !== taskId);
     })
   );
-  displayMessage('success', 'Tâche supprimée avec succès.');
+  store.dispatch(displayMessage({content: 'Tâche supprimée avec succès !', typeMessage: 'success'}));
+  setTimeout(() => {
+    store.dispatch(hideMessage());
+  }, 3000);
 };
   const handleTaskDrop = (droppedTask, newTableId) => {
     const updatedTask = { ...droppedTask, tableId: newTableId };
@@ -143,7 +164,10 @@ const deleteTask = (taskId) => {
         }
       })
     );
-    displayMessage('success', 'Tâche modifiée avec succès.');
+    store.dispatch(displayMessage({content: 'Tâche modifiée avec succès !', typeMessage: 'success'}));
+    setTimeout(() => {
+      store.dispatch(hideMessage());
+    }, 3000);
   };
 
   const editTableTitle = (taskId, newTitle) => {
@@ -151,23 +175,18 @@ const deleteTask = (taskId) => {
       table.id === taskId ? { ...table, title: newTitle } : table
     );
     setTablesList(updatedTab);
-    displayMessage('success', 'Tableau modifié avec succès.');
-  };
-
-  const [message, setMessage] = useState(null);
-
-  const displayMessage = (type, content) => {
-    setMessage({ type, content });
+    store.dispatch(displayMessage({content: 'Tableau modifié avec succès !', typeMessage: 'success'}));
     setTimeout(() => {
-      setMessage(null);
-    }, 3000); // Supprime le message après 3 secondes
+      store.dispatch(hideMessage());
+    }, 3000);
   };
+
 
   return (
     <div className="tablesContainer">
       <AddTableForm onAddTable={addTable} />
       <SelectTableDelete deleteTable={deleteTable} tables={tablesList} />
-      {message && <Message type={message.type} content={message.content} />}
+    
       <div className="tablesListContainer">
         {tablesList.sort((a, b)=> (a.order > b.order ? 1 : -1)).map((table, index) => (
           <Table
