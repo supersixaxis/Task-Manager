@@ -19,16 +19,8 @@ export default function Table({
       setIsEditingTitle(true);
     }
   };
-
-  const handleEditTitleComplete = (newTitle) => {
-    store.dispatch(editTableTitle({ id: table.id, newTitle }));
-    setIsEditingTitle(false);
-    showMessage('Tableau modifié avec succès !', 'success');
-  };
-
   const handleDrop = (e) => {
     e.preventDefault();
-
     const taskId = e.dataTransfer.getData('taskId');
     const droppedTask = tasks.find((task) => task.id === taskId);
     let id_table_drag = e.dataTransfer.getData('id_table_drag');
@@ -61,7 +53,7 @@ export default function Table({
         <EditTableTitleForm
           tableId={table.id}
           initialTitle={table.title}
-          onEditComplete={handleEditTitleComplete}
+          setIsEditingTitle={setIsEditingTitle}
         />
       ) : (
         <p className="tableTitle">{table.title}</p>

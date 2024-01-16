@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { editTableTitle } from '../redux/table/TableSlice';
+import { store } from '../redux/Store';
+import { showMessage } from '../utils/MessageUtils'
 
-export default function EditTaskForm({  initialTitle, onEditComplete }) {
+export default function EditTaskForm({  initialTitle, tableId, setIsEditingTitle }) {
   const [editedTabTitle, setEditedTabTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditComplete(editedTabTitle);
+    store.dispatch(editTableTitle({ id : tableId, newTitle: editedTabTitle  }));
+    showMessage('Tableau modifié avec succès !', 'success');
+    setIsEditingTitle(false)
     setPopinVisible(false);
   };
 

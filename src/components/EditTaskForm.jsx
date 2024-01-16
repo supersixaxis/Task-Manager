@@ -7,8 +7,6 @@ export default function EditTaskForm({  initialTitle, taskId, setIsEditing}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Task ID:', taskId);
-    console.log('Edited Task Title:', editedTaskTitle);
     store.dispatch(editTask({ taskId, newTitle: editedTaskTitle  }));
     setIsEditing(false)
     setPopinVisible(false);

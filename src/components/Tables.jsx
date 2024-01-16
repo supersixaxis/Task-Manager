@@ -12,7 +12,6 @@ function Tables() {
     <div className="tablesContainer">
       <AddTableForm />
       <SelectTableDelete  tables={tablesList} />
-    
       <div className="tablesListContainer">
       {tablesList.slice().sort((a, b) => (a.order > b.order ? 1 : -1)).map((table, index) => (
        <Table
