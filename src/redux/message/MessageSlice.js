@@ -13,12 +13,12 @@ export const MessageSlice = createSlice({
       displayMessage: (state, action) => {
         state.viewMessage = true;
         state.content = action.payload.content;
-        state.typeMessage = action.payload.typeMessage;
+        state.type = action.payload.type;
       },
       hideMessage: (state) => {
         state.viewMessage = false;
         state.content = "";
-        state.typeMessage = "";
+        state.type = "";
       },
     },
   });

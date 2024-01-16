@@ -1,13 +1,11 @@
 import React from 'react';
 import '../styles/tables.css';
-import '../styles/tables.css';
 import { useSelector } from 'react-redux';
-
 
 const Message = () => {
   const content = useSelector((state) => state.message.content)
-  const typeMessage = useSelector((state) => state.message.typeMessage)
-  const messageTypeClass = typeMessage === 'error' ? 'errorMessage' : 'successMessage';
+  const type = useSelector((state) => state.message.type)
+  const messageTypeClass = type === 'error' ? 'errorMessage' : 'successMessage';
 
   return (
     <div className={`displayMessage ${messageTypeClass}`}>

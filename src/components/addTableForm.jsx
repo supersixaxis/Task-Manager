@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-
-const AddTableForm = ({ onAddTable }) => {
+import { store } from '../redux/Store';
+import { addTable } from '../redux/table/TableSlice';
+import { showMessage } from '../utils/MessageUtils';
+import { v4 as uuidv4 } from 'uuid';
+const AddTableForm = () => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newTableTitle, setNewTableTitle] = useState('');
 
@@ -10,7 +13,15 @@ const AddTableForm = ({ onAddTable }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    onAddTable(newTableTitle);
+
+    if (newTableTitle.trim() === '') {
+      showMessage('Veuillez remplir le nom de votre tableau !', 'error');
+      return;
+    }
+
+    store.dispatch(addTable({ id: uuidv4(), title: newTableTitle }));
+    showMessage('Tableau ajouté avec succès !', 'success');
+
     setNewTableTitle('');
     setPopinVisible(false);
   };

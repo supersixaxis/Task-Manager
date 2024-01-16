@@ -2,7 +2,18 @@ import React, { useState } from 'react';
 import Task from './Task';
 import EditTableTitleForm from './EditTableTitleForm';
 import FormAddTask from './FormAddTask';
-export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStart, editTask, editTableTitle, addTaskTable, moveTable }) {
+import { moveTable, editTableTitle } from '../redux/table/TableSlice';
+import { store } from '../redux/Store';
+
+export default function Table({
+  table,
+  tasks,
+  deleteTask,
+  onTaskDrop,
+  onDragStart,
+  editTask,
+  addTaskTable,
+}) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const tasksForTable = tasks.filter((task) => task.tableId === table.id);
 
@@ -13,7 +24,7 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
   };
 
   const handleEditTitleComplete = (newTitle) => {
-    editTableTitle(table.id, newTitle);
+    store.dispatch(editTableTitle({ id: table.id, newTitle }));
     setIsEditingTitle(false);
   };
 
@@ -22,13 +33,13 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
 
     const taskId = e.dataTransfer.getData('taskId');
     const droppedTask = tasks.find((task) => task.id === taskId);
-    let id_table_drag = e.dataTransfer.getData('id_table_drag')
-    const order_table_drag = e.dataTransfer.getData('order_table_drag')
+    let id_table_drag = e.dataTransfer.getData('id_table_drag');
+    const order_table_drag = e.dataTransfer.getData('order_table_drag');
     if (droppedTask) {
       onTaskDrop(droppedTask, table.id);
-    }else if(id_table_drag){
+    } else if (id_table_drag) {
       // J'ai droppé un tableau
-      moveTable(id_table_drag, order_table_drag, table.id, table.order)
+      store.dispatch(moveTable({ id_table_drag, order_table_drag, id_table_drop: table.id, order_table_drop: table.order }));
     }
   };
 
@@ -37,13 +48,17 @@ export default function Table({ table, tasks, deleteTask, onTaskDrop, onDragStar
   };
 
   return (
-    <div className="table" draggable="true"
-    onDragStart={(e)=>{
-      e.dataTransfer.setData('id_table_drag', table.id)
-      e.dataTransfer.setData('order_table_drag', table.order)
-    
-    }} 
-    onDrop={handleDrop} onDragOver={allowDrop} onClick={handleClick}>
+    <div
+      className="table"
+      draggable="true"
+      onDragStart={(e) => {
+        e.dataTransfer.setData('id_table_drag', table.id);
+        e.dataTransfer.setData('order_table_drag', table.order);
+      }}
+      onDrop={handleDrop}
+      onDragOver={allowDrop}
+      onClick={handleClick}
+    >
       {isEditingTitle ? (
         <EditTableTitleForm
           tableId={table.id}
