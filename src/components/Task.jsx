@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import EditTaskForm from './EditTaskForm';
-
-export default function Task({ task, deleteTask, onDragStart, editTask }) {
+import { deleteTask} from '../redux/task/TaskSlice';
+import { store } from '../redux/Store';
+import { showMessage } from '../utils/MessageUtils';
+export default function Task({ task, onDragStart,  }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDragStart = (e) => {
     onDragStart(e, task);
   };
-
-  const handleClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleEditComplete = (editedTitle) => {
-    editTask(task.id, editedTitle);
-    setIsEditing(false);
-  };
-
+  console.log(task)
   return (
     <div
       draggable="true"
@@ -31,15 +24,20 @@ export default function Task({ task, deleteTask, onDragStart, editTask }) {
         <EditTaskForm
           taskId={task.id}
           initialTitle={task.title}
-          onEditComplete={handleEditComplete}
-          editTask={editTask}
         />
       ) : (
         <>
+       
           <p key={task.id}>{task.title}</p>
-          <button className="taskButton" onClick={() => deleteTask(task.id)}>
-            X
-          </button>
+          <button
+          className="taskButton"
+          onClick={() => {
+            store.dispatch(deleteTask(task.id));
+            showMessage('Tâche supprimée avec succès !', 'success');
+          }}
+        >
+          X
+        </button>
         </>
       )}
     </div>

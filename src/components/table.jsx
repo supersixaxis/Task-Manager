@@ -4,15 +4,12 @@ import EditTableTitleForm from './EditTableTitleForm';
 import FormAddTask from './FormAddTask';
 import { moveTable, editTableTitle } from '../redux/table/TableSlice';
 import { store } from '../redux/Store';
-
+import { showMessage } from '../utils/MessageUtils';
 export default function Table({
   table,
   tasks,
-  deleteTask,
   onTaskDrop,
   onDragStart,
-  editTask,
-  addTaskTable,
 }) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const tasksForTable = tasks.filter((task) => task.tableId === table.id);
@@ -26,6 +23,7 @@ export default function Table({
   const handleEditTitleComplete = (newTitle) => {
     store.dispatch(editTableTitle({ id: table.id, newTitle }));
     setIsEditingTitle(false);
+    showMessage('Tableau modifié avec succès !', 'success');
   };
 
   const handleDrop = (e) => {
@@ -73,12 +71,10 @@ export default function Table({
         <Task
           key={task.id}
           task={task}
-          deleteTask={() => deleteTask(task.id)}
           onDragStart={(e) => onDragStart(e, task)}
-          editTask={editTask}
         />
       ))}
-      <FormAddTask addTaskTable={addTaskTable} tableId={table.id} />
+      <FormAddTask tableId={table.id} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { showMessage } from '../utils/MessageUtils';
+
 export default function EditTaskForm({  initialTitle, onEditComplete }) {
   const [editedTabTitle, setEditedTabTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
@@ -8,7 +8,6 @@ export default function EditTaskForm({  initialTitle, onEditComplete }) {
     e.preventDefault();
     onEditComplete(editedTabTitle);
     setPopinVisible(false);
-    showMessage('Tableau modifié avec succès !', 'success');
   };
 
   return (
