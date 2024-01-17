@@ -16,6 +16,7 @@ export default function HomePage() {
     <div>
         <Link to="/login" className="btnNav">Login</Link>
         <Link to="/tasklist" className="btnNav">Liste de tâches</Link>
+        <Link to="/spacelist" className="btnNav">Espace de travail</Link>
       <h1>Page d'accueil</h1>
     </div>
   )
