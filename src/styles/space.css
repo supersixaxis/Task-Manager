@@ -26,6 +26,7 @@ html {
 .spaceCard {
     cursor: pointer;
     position: relative;
+    height: 80%;
 
 }
 .spaceCardContainer:hover{

@@ -4,9 +4,9 @@ import edit from '../assets/edit.svg'
 import EditSpaceTitleForm  from './EditSpaceTitleForm'
 import { Link } from 'react-router-dom';
 
-export default function Space({space}) {
+export default function Space({ space, isSelected, onCheckboxChange }) {
     const [isEditingTitle, setIsEditingTitle] = useState(false);
-
+    const [isChecked, setIsChecked] = useState(false);
     const handleClick = (e) => {
             e.stopPropagation();
           setIsEditingTitle(true);
@@ -25,6 +25,13 @@ export default function Space({space}) {
         <div className='spaceCardContainer' style={{ backgroundColor: space.color }}>
         <div className='btnEditContainer'>
          <button className='btnEdit' onClick={handleClick}><img src={edit} alt=""   /></button>
+         <label>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+          />
+        </label>
          </div>
         <Link className="btnTab" to={`/space/tasklist/${space.id}`}>
             <div className='spaceCard'>
@@ -35,15 +42,24 @@ export default function Space({space}) {
 </>
       ) : (
         <div className='spaceCardContainer' style={{ backgroundColor: space.color }}>
-            <div className='btnEditContainer'>
-             <button className='btnEdit' onClick={handleClick}><img src={edit} alt=""   /></button>
-             </div>
-            <Link className="btnTab" to={`/space/tasklist/${space.id}`}>
-                <div className='spaceCard'>
-                <p>{space.title}</p> 
+          <div className='btnEditContainer'>
+            <button className='btnEdit' onClick={handleClick}>
+              <img src={edit} alt='' />
+            </button>
+            <label>
+              <input
+                type='checkbox'
+                checked={isSelected}
+                onChange={onCheckboxChange}
+              />
+            </label>
+          </div>
+          <Link className='btnTab' to={`/space/tasklist/${space.id}`}>
+            <div className='spaceCard'>
+              <p>{space.title}</p>
             </div>
-        </Link>
-    </div>
+          </Link>
+        </div>
       
       )}
 

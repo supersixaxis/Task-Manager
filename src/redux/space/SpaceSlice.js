@@ -37,8 +37,12 @@ export const spaceSlice = createSlice({
             );
           
           },
-    }
+          deleteSpaces: (state, action) => {
+            const spaceIdsToDelete = action.payload;
+            state.spaceList = state.spaceList.filter((space) => !spaceIdsToDelete.includes(space.id));
+          },
+        },
 })
 
-export const { editSpaceTitle } = spaceSlice.actions;
+export const { editSpaceTitle,deleteSpaces  } = spaceSlice.actions;
 export default spaceSlice.reducer;
