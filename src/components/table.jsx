@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Task from './Task';
 import EditTableTitleForm from './EditTableTitleForm';
 import FormAddTask from './FormAddTask';
-import { moveTable, editTableTitle } from '../redux/table/TableSlice';
+import { moveTable } from '../redux/table/TableSlice';
 import { store } from '../redux/Store';
 import { moveTask } from '../redux/task/TaskSlice';
-import { showMessage } from '../utils/MessageUtils';
+import edit from '../assets/edit.svg'
+
+
 export default function Table({
   table,
   tasks,
@@ -14,10 +16,8 @@ export default function Table({
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const tasksForTable = tasks.filter((task) => task.tableId === table.id);
 
-  const handleClick = (e) => {
-    if (e.target.className === 'tableTitle') {
+  const handleClick = () => {
       setIsEditingTitle(true);
-    }
   };
   const handleDrop = (e) => {
     e.preventDefault();
@@ -40,6 +40,7 @@ export default function Table({
   return (
     <div
       className="table"
+      style={{ backgroundColor: table.color }}
       draggable="true"
       onDragStart={(e) => {
         e.dataTransfer.setData('id_table_drag', table.id);
@@ -47,14 +48,20 @@ export default function Table({
       }}
       onDrop={handleDrop}
       onDragOver={allowDrop}
-      onClick={handleClick}
+      
+     
     >
+      <button className='btnEdit' onClick={handleClick}><img src={edit} alt=""/></button>
       {isEditingTitle ? (
+        <>
         <EditTableTitleForm
           tableId={table.id}
           initialTitle={table.title}
+          initialColor={table.color}
           setIsEditingTitle={setIsEditingTitle}
         />
+        <p className="tableTitle">{table.title}</p>
+        </>
       ) : (
         <p className="tableTitle">{table.title}</p>
       )}

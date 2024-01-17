@@ -13,12 +13,12 @@ export default function SpaceList() {
             <SpaceListHeader />
             <div className='spaceListContainer'>
                 {spaceList.slice().sort((a, b) => (a.order > b.order ? 1 : -1)).map((space, index) => (
-                    <Link className="btnTab" key={index} to={`/space/tasklist/${space.id}`}>
+            
                         <Space
                             key={index}
                             space={space}
                         />
-                    </Link>
+
                 ))}
             </div>
         </div>

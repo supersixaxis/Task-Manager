@@ -6,30 +6,35 @@ const initialState = {
       id: '1',
       title: 'Projet ressource',
       order: 1,
+      color: '#6559b4bd',
       spaceId:1
     },
     {
       id: '2',
       title: 'Sujet de la prochaine réunion',
       order: 2,
+      color: '#6559b4bd',
       spaceId:2
     },
     {
       id: '3',
       title: 'A faire',
       order: 3,
+      color: '#6559b4bd',
       spaceId:3
     },
     {
       id: '4',
       title: 'En cours',
       order: 4,
+      color: '#6559b4bd',
       spaceId:4
     },
     {
       id: '5',
       title: 'Terminer',
       order: 5,
+      color: '#6559b4bd',
       spaceId:4
     },
   ],
@@ -45,17 +50,18 @@ export const tableSlice = createSlice({
         id,
         title,
         order: state.tablesList.length + 1,
-        spaceId
+        spaceId,
+        color: '#6559b4bd'
       };
       
       state.tablesList = state.tablesList.concat(newTable);
-      console.log(state.tablesList)
     },
     editTableTitle: (state, action) => {
-      const { id, newTitle } = action.payload;
+      const { id, newTitle, newColor } = action.payload;
       state.tablesList = state.tablesList.map((table) =>
-        table.id === id ? { ...table, title: newTitle } : table
+        table.id === id ? { ...table, title: newTitle, color: newColor } : table
       );
+      console.log(state.tablesList)
     },
     deleteTable: (state, action) => {
       const idToDelete = action.payload;
