@@ -15,7 +15,7 @@ function App()
     <Routes>
     <Route path='/' element={<HomePage/>} />
     <Route path='/login' element={<Login/>} />
-    <Route path='/tasklist' element={<Tables/>} />
+    <Route path='/space/tasklist/:id' element={<Tables/>} />
     <Route path='/spacelist' element={<SpaceList/>} />
     </Routes>
     </>

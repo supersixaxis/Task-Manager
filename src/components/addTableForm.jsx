@@ -3,14 +3,13 @@ import { store } from '../redux/Store';
 import { addTable } from '../redux/table/TableSlice';
 import { showMessage } from '../utils/MessageUtils';
 import { v4 as uuidv4 } from 'uuid';
-const AddTableForm = () => {
+const AddTableForm = ({ spaceId }) => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newTableTitle, setNewTableTitle] = useState('');
 
   const handleButtonClick = () => {
     setPopinVisible(!isPopinVisible);
   };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -19,9 +18,8 @@ const AddTableForm = () => {
       return;
     }
 
-    store.dispatch(addTable({ id: uuidv4(), title: newTableTitle }));
+    store.dispatch(addTable({ id: uuidv4(), title: newTableTitle, spaceId: parseInt(spaceId) }));
     showMessage('Tableau ajouté avec succès !', 'success');
-
     setNewTableTitle('');
     setPopinVisible(false);
   };

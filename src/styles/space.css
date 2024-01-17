@@ -32,3 +32,16 @@ html {
     color: white;
     margin-left: 20px;
 }
+.btnNav{
+    color: white;
+    background-color: rgba(101, 89, 180, 0.74);
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btnNav:hover {
+    background-color: blue;
+}
+.btnTab {
+    text-decoration: none;
+}

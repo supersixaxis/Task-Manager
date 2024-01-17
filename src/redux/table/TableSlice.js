@@ -5,22 +5,32 @@ const initialState = {
     {
       id: '1',
       title: 'Projet ressource',
-      order: 1
+      order: 1,
+      spaceId:1
     },
     {
       id: '2',
       title: 'Sujet de la prochaine réunion',
-      order: 2
+      order: 2,
+      spaceId:2
     },
     {
       id: '3',
       title: 'A faire',
-      order: 3
+      order: 3,
+      spaceId:3
     },
     {
       id: '4',
       title: 'En cours',
-      order: 4
+      order: 4,
+      spaceId:4
+    },
+    {
+      id: '5',
+      title: 'Terminer',
+      order: 5,
+      spaceId:4
     },
   ],
 };
@@ -30,12 +40,16 @@ export const tableSlice = createSlice({
   initialState,
   reducers: {
     addTable: (state, action) => {
+      const { id, title, spaceId } = action.payload;
       const newTable = {
-        id: action.payload.id,
-        title: action.payload.title,
+        id,
+        title,
         order: state.tablesList.length + 1,
+        spaceId
       };
-      state.tablesList.push(newTable);
+      
+      state.tablesList = state.tablesList.concat(newTable);
+      console.log(state.tablesList)
     },
     editTableTitle: (state, action) => {
       const { id, newTitle } = action.payload;
