@@ -93,10 +93,15 @@ export const tableSlice = createSlice({
 
       state.tablesList = newTables;
     },
+    deleteTablesBySpaceId: (state, action) => {
+      const spaceIdToDelete = action.payload;
+      state.tablesList = state.tablesList.filter(table => table.spaceId !== spaceIdToDelete);
+      console.log(state.tablesList)
+    },
     // ... autres actions pour les tables
   },
 });
 
-export const { addTable, editTableTitle, deleteTable, moveTable } = tableSlice.actions;
+export const { addTable, editTableTitle, deleteTable, moveTable, deleteTablesBySpaceId  } = tableSlice.actions;
 
 export default tableSlice.reducer;
