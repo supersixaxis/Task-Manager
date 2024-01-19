@@ -4,42 +4,27 @@ import { store } from '../redux/store';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import style from './styleModal';
 export default function EditTaskForm({ initialTitle, taskId, setIsEditing }) {
   const [editedTaskTitle, setEditedTaskTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
   const [editedSpaceColor, setEditedSpaceColor] = useState('');
-  const [open, setOpen] = useState(true); // Ajout de la variable d'état open
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     store.dispatch(editTask({ taskId, newTitle: editedTaskTitle, color: editedSpaceColor }));
     setIsEditing(false);
     setPopinVisible(false);
-    setOpen(false);
   };
 
   const handleClose = () => {
-    setIsEditing(false);
     setPopinVisible(false);
-    setOpen(false); 
   };
 
   return (
     <Modal
-      open={open}
+      open={isPopinVisible}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

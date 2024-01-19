@@ -24,12 +24,13 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      const { tableId, taskContent } = action.payload;
+      const { tableId, taskContent, color } = action.payload;
       if (taskContent !== '') {
         const newTask = {
           id: uuidv4(),
           title: taskContent,
           tableId,
+          color
         };
         state.taskList.push(newTask);
       }
@@ -44,7 +45,6 @@ const taskSlice = createSlice({
         task.id === taskId ? { ...task, title: newTitle, color  } : task,
         
       );
-      console.log(state.taskList)
     },
     moveTask: (state, action) => {
         const { droppedTask, newTableId } = action.payload;

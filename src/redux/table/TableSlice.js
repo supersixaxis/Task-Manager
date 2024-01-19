@@ -45,13 +45,13 @@ export const tableSlice = createSlice({
   initialState,
   reducers: {
     addTable: (state, action) => {
-      const { id, title, spaceId } = action.payload;
+      const { id, title, spaceId, color } = action.payload;
       const newTable = {
         id,
         title,
         order: state.tablesList.length + 1,
         spaceId,
-        color: '#6559b4bd'
+        color,
       };
       
       state.tablesList = state.tablesList.concat(newTable);
