@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { editSpaceTitle } from '../redux/space/SpaceSlice';
 import { store } from '../redux/Store';
-import { showMessage } from '../utils/MessageUtils'
+import { showMessage } from '../utils/MessageUtils.js'
 
 export default function EditSpaceTitleForm({  initialTitle, spaceId,  initialColor, setIsEditingSpaceTitle }) {
     const [editedSpaceTitle, setEditedSpaceTitle] = useState(initialTitle);

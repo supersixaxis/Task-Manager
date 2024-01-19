@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { store } from '../redux/Store';
+import { store } from '../redux/store';
 import { addTable } from '../redux/table/TableSlice';
-import { showMessage } from '../utils/MessageUtils';
+import { showMessage } from '../utils/MessageUtils.js';
 import { v4 as uuidv4 } from 'uuid';
 const AddTableForm = ({ spaceId }) => {
   const [isPopinVisible, setPopinVisible] = useState(false);

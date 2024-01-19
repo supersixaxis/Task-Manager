@@ -1,17 +1,28 @@
-import React from 'react';
-import '../styles/tables.css';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { hideMessage } from '../redux/message/MessageSlice'
+import { useSelector } from 'react-redux'
+import { store } from '../redux/store'
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 //import Snackbar from '@mui/material/Snackbar';
 const Message = () => {
   const content = useSelector((state) => state.message.content)
   const type = useSelector((state) => state.message.type)
-  const messageTypeClass = type === 'error' ? 'errorMessage' : 'successMessage';
+  const viewMessage = useSelector((state) => state.message.viewMessage)
 
   return (
-    <div className={`displayMessage ${messageTypeClass}`}>
-      <p>{content}</p>
-    </div>
-  );
+
+    <Snackbar open={viewMessage} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} autoHideDuration={3000} onClose={() =>{ store.dispatch( hideMessage()) }}>
+        <Alert
+            severity={type}
+            variant="filled"
+            sx={{ width: '100%' }}
+            onClose={() =>{ store.dispatch( hideMessage()) }}
+        >
+            {content}
+        </Alert>
+    </Snackbar>
+)
 };
 
 export default Message;

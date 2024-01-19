@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { deleteTable } from '../redux/table/TableSlice';
-import { showMessage } from '../utils/MessageUtils';
+import { showMessage } from '../utils/MessageUtils.js';
 import { store } from '../redux/Store';
 const SelectTableDelete = ({ tables }) => {
   const [idTableSelected, setIdTableSelected] = useState(0);

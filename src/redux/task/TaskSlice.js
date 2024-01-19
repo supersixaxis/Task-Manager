@@ -8,11 +8,13 @@ const initialState = {
       id: '1',
       title: 'titre de ma tache',
       tableId: '1',
+      color: ''
     },
     {
       id: '2',
       title: 'titre de ma tache 2',
       tableId: '2',
+      color: ''
     },
   ],
 };
@@ -37,10 +39,12 @@ const taskSlice = createSlice({
       state.taskList = state.taskList.filter((task) => task.id !== taskId);
     },
     editTask: (state, action) => {
-      const { taskId, newTitle } = action.payload;
+      const { taskId, newTitle, color  } = action.payload;
       state.taskList = state.taskList.map((task) =>
-        task.id === taskId ? { ...task, title: newTitle } : task
+        task.id === taskId ? { ...task, title: newTitle, color  } : task,
+        
       );
+      console.log(state.taskList)
     },
     moveTask: (state, action) => {
         const { droppedTask, newTableId } = action.payload;

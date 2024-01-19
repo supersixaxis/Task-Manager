@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EditTaskForm from './EditTaskForm';
 import { deleteTask} from '../redux/task/TaskSlice';
 import { store } from '../redux/Store';
-import { showMessage } from '../utils/MessageUtils';
+import { showMessage } from '../utils/MessageUtils.js';
 export default function Task({ task, onDragStart  }) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -14,6 +14,7 @@ export default function Task({ task, onDragStart  }) {
       draggable="true"
       onDragStart={handleDragStart}
       className="taskContainer"
+      style={{ backgroundColor: task.color }}
       onClick={(e)=>{
         e.stopPropagation()
         setIsEditing(true);

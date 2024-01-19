@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { store } from '../redux/Store';
 import { addTask } from '../redux/task/TaskSlice';
-import { showMessage } from '../utils/MessageUtils';
+import { showMessage } from '../utils/MessageUtils.js';
 
 export default function FormAddTask({ tableId }) {
   const [newTableTask, setNewTableTask] = useState('');

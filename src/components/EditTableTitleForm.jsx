@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { editTableTitle } from '../redux/table/TableSlice';
 import { store } from '../redux/Store';
-import { showMessage } from '../utils/MessageUtils'
+import { showMessage } from '../utils/MessageUtils.js'
 import '../styles/tables.css'
 export default function EditTableForm({  initialTitle, initialColor, tableId, setIsEditingTitle }) {
   const [editedTabTitle, setEditedTabTitle] = useState(initialTitle);
