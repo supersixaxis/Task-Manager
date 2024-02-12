@@ -48,11 +48,16 @@ export const spaceSlice = createSlice({
               title,
               color,
             };
-            
+            const existingSpaces = JSON.parse(localStorage.getItem('spaces')) || [];
+            const updatedSpaces = [...existingSpaces, newSpace]; 
+            localStorage.setItem('spaces', JSON.stringify(updatedSpaces));
             state.spaceList = state.spaceList.concat(newSpace);
           },
+          setSpaces: (state,action) => {
+            state.spaceList = action.payload
+          }
         },
 })
 
-export const { editSpaceTitle,deleteSpaces,addSpace  } = spaceSlice.actions;
+export const { editSpaceTitle,deleteSpaces,addSpace, setSpaces  } = spaceSlice.actions;
 export default spaceSlice.reducer;

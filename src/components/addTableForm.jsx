@@ -18,21 +18,22 @@ const AddTableForm = ({ spaceId }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-  
     if (newTableTitle.trim() === '') {
       showMessage('Veuillez remplir le nom de votre tableau !', 'error');
       return;
     }
-    store.dispatch(addTable({
+   
+    const newTable = {
       id: uuidv4(),
       title: newTableTitle,
       spaceId: parseInt(spaceId),
       color: editedSpaceColor,
-    }));
-    showMessage('Tableau ajouté avec succès !', 'success');
+    };
+    store.dispatch(addTable(newTable)); 
     setNewTableTitle('');
     setEditedSpaceColor('');
     setPopinVisible(false);
+    showMessage('Tableau ajouté avec succès !', 'success');
   };
 
   const handleClose = () => {

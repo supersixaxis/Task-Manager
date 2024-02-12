@@ -11,6 +11,7 @@ import { store } from '../redux/store';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom'
+import { setSpaces } from '../redux/space/SpaceSlice';
 export default function SpaceList() {
   const spaceList = useSelector((state) => state.space.spaceList);
   const [selectedSpaces, setSelectedSpaces] = useState([]);
@@ -22,7 +23,20 @@ export default function SpaceList() {
     if(!connected){
       return navigate('/login')
     }
+
+    let spacesStorage = localStorage.getItem('spaces')
+
+    if(spacesStorage !== null && spacesStorage !== ''){
+
+        let data = JSON.parse(spacesStorage)
+        store.dispatch(setSpaces(data))
+
+    }else {
+      localStorage.setItem('spaces', JSON.stringify(spaceList));
+    }
+
 }, [])
+
   const handleCheckboxChange = (spaceId) => {
     setSelectedSpaces((prevSelectedSpaces) => {
       if (prevSelectedSpaces.includes(spaceId)) {

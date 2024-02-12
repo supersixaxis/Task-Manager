@@ -19,7 +19,11 @@ const SelectTableDelete = ({ tables }) => {
       showMessage('Veuillez sélectionner un tableau à supprimer', 'error');
       return;
     }
+  
     store.dispatch(deleteTable(idTableSelected));
+    const existingTables = JSON.parse(localStorage.getItem('tables')) || [];
+    const updatedTables = existingTables.filter(table => table.id !== idTableSelected);
+    localStorage.setItem('tables', JSON.stringify(updatedTables));
     showMessage('Tableau supprimé !', 'success');
     setIdTableSelected(0);
     setPopinVisible(false);

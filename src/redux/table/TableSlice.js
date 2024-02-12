@@ -46,14 +46,16 @@ export const tableSlice = createSlice({
   reducers: {
     addTable: (state, action) => {
       const { id, title, spaceId, color } = action.payload;
+      const existingTables = JSON.parse(localStorage.getItem('tables')) || [];
       const newTable = {
         id,
         title,
-        order: state.tablesList.length + 1,
+        order: existingTables.length + 1,
         spaceId,
         color,
-      };
-      
+      }; 
+      const updatedTables = [...existingTables, newTable];
+      localStorage.setItem('tables', JSON.stringify(updatedTables));
       state.tablesList = state.tablesList.concat(newTable);
     },
     editTableTitle: (state, action) => {
@@ -66,6 +68,7 @@ export const tableSlice = createSlice({
     deleteTable: (state, action) => {
       const idToDelete = action.payload;
       state.tablesList = state.tablesList.filter(table => table.id !== idToDelete);
+      
     },
     moveTable: (state, action) => {
       const { id_table_drag, order_table_drag, id_table_drop, order_table_drop } = action.payload;
@@ -98,10 +101,12 @@ export const tableSlice = createSlice({
       state.tablesList = state.tablesList.filter(table => table.spaceId !== spaceIdToDelete);
       console.log(state.tablesList)
     },
-    // ... autres actions pour les tables
+    setTables: (state, actions) => {
+      state.tablesList = actions.payload
+  },
   },
 });
 
-export const { addTable, editTableTitle, deleteTable, moveTable, deleteTablesBySpaceId  } = tableSlice.actions;
+export const { addTable, editTableTitle, deleteTable, moveTable, deleteTablesBySpaceId, setTables  } = tableSlice.actions;
 
 export default tableSlice.reducer;

@@ -3,7 +3,7 @@ import { store } from '../redux/Store';
 import { addSpace } from '../redux/space/SpaceSlice';
 import { showMessage } from '../utils/MessageUtils.js';
 import { v4 as uuidv4 } from 'uuid';
-const AddSpaceForm = ({  }) => {
+const AddSpaceForm = () => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newSpaceTitle, setNewSpaceTitle] = useState('');
   const [editedSpaceColor, setEditedSpaceColor] = useState("");
