@@ -4,17 +4,25 @@ import Space from './Space';
 import '../styles/space.css';
 import SpaceListHeader from './SpaceListHeader';
 import AddSpaceForm from './AddSpaceForm'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { deleteSpaces } from '../redux/space/SpaceSlice';
 import { deleteTablesBySpaceId } from '../redux/table/TableSlice'
-import { store } from '../redux/Store';
+import { store } from '../redux/store';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
-export default function SpaceList({ space }) {
+import {useNavigate} from 'react-router-dom'
+export default function SpaceList() {
   const spaceList = useSelector((state) => state.space.spaceList);
   const [selectedSpaces, setSelectedSpaces] = useState([]);
   const [isFormVisible, setFormVisible] = useState(false);
+  const navigate = useNavigate()
+  useEffect(()=>{
+    let connected = sessionStorage.getItem('connected') === 'true'
 
+    if(!connected){
+      return navigate('/login')
+    }
+}, [])
   const handleCheckboxChange = (spaceId) => {
     setSelectedSpaces((prevSelectedSpaces) => {
       if (prevSelectedSpaces.includes(spaceId)) {

@@ -12,8 +12,8 @@ export default function Login() {
             if(email.trim().lenght === 0 || password.trim().lenght === 0){
                 alert('Veuillez saisir un email et un mot de passe')
             }
-            if (email === 'contact@cloudcampus.fr' && password === '0000'){
-                localStorage.setItem('connected', true)
+            if (email === 'nath@live.fr' && password === '0000'){
+                sessionStorage.setItem('connected', true)
                 return navigate('/')
             } else alert('Identifiant ou mot de passe incorrect')
         }}>
