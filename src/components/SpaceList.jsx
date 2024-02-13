@@ -17,6 +17,7 @@ export default function SpaceList() {
   const [selectedSpaces, setSelectedSpaces] = useState([]);
   const [isFormVisible, setFormVisible] = useState(false);
   const navigate = useNavigate()
+
   useEffect(()=>{
     let connected = sessionStorage.getItem('connected') === 'true'
 
@@ -24,18 +25,25 @@ export default function SpaceList() {
       return navigate('/login')
     }
 
-    let spacesStorage = localStorage.getItem('spaces')
+    const request = indexedDB.open('task-managerDB', 2)
 
-    if(spacesStorage !== null && spacesStorage !== ''){
+    request.onsuccess = function(event){
 
-        let data = JSON.parse(spacesStorage)
-        store.dispatch(setSpaces(data))
+        let db = event.target.result
 
-    }else {
-      localStorage.setItem('spaces', JSON.stringify(spaceList));
+        const transaction = db.transaction(['space'], 'readonly')
+        const spaceStore = transaction.objectStore("space")
+        const request2 = spaceStore.getAll()
+
+        request2.onsuccess = function(){
+            console.log(request2.result)
+            store.dispatch(setSpaces(request2.result))
+        }
+
     }
 
 }, [])
+
 
   const handleCheckboxChange = (spaceId) => {
     setSelectedSpaces((prevSelectedSpaces) => {

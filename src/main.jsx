@@ -15,8 +15,6 @@ request.onupgradeneeded = function(event) {
   let tableStore = db.createObjectStore('table', {keyPath: "id"})
   let taskStore = db.createObjectStore('task', {keyPath: "id"})
 
-
-
   if(localStorage.getItem('spaces') !== null && localStorage.getItem('spaces') !== ''){
     let spaces = []
     spaces = JSON.parse(localStorage.getItem('spaces'))
