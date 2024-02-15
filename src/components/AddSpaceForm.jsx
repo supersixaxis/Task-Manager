@@ -3,6 +3,7 @@ import { store } from '../redux/Store';
 import { addSpace } from '../redux/space/SpaceSlice';
 import { showMessage } from '../utils/MessageUtils.js';
 import { v4 as uuidv4 } from 'uuid';
+import { addSpacesAPI } from '../api/SpaceAPI'
 const AddSpaceForm = () => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newSpaceTitle, setNewSpaceTitle] = useState('');
@@ -10,20 +11,19 @@ const AddSpaceForm = () => {
   const handleButtonClick = () => {
     setPopinVisible(!isPopinVisible);
   };
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
   
     if (newSpaceTitle.trim() === '') {
       showMessage('Veuillez remplir le nom de votre espace de travail !', 'error');
       return;
     }
-  
-    store.dispatch(addSpace({ id: uuidv4(), title: newSpaceTitle, color: editedSpaceColor }));
+    let id = await addSpacesAPI(newSpaceTitle, editedSpaceColor);
+    store.dispatch(addSpace({ id, title: newSpaceTitle, color: editedSpaceColor }));
     showMessage('Espace de travail ajouté avec succès !', 'success');
     setNewSpaceTitle('');
     setPopinVisible(false);
   };
-
   return (
     <div>
       <button onClick={handleButtonClick}>Ajouter un espace de travail</button>

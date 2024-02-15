@@ -76,17 +76,6 @@ useEffect(()=>{
       />
       <Box>
         <Grid container spacing={2}>
-          {/* {spaceList.slice().sort((a, b) => (a.order > b.order ? 1 : -1)).map((space, index) => (
-            <Grid xs={12} sm={6} md={4} lg={3} key={index}>
-            <Space
-              key={index}
-              space={space}
-              isSelected={selectedSpaces.includes(space.id)}
-              onCheckboxChange={() => handleCheckboxChange(space.id)}
-              isFormVisible={isFormVisible}
-            /> 
-            </Grid>
-        ))}*/}
          {spaces.map((space, index)=> {
            return  <Grid xs={12} sm={6} md={4} lg={3} key={index}>
              <Space

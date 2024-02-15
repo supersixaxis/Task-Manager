@@ -27,3 +27,32 @@ export function getSpaces(){
     }
 
 }
+
+const url_add_spaces = "https://firestore.googleapis.com/v1/projects/" + import.meta.env.VITE_PROJECT_ID + "/databases/(default)/documents/space?key=" + import.meta.env.VITE_API_KEY
+
+export function addSpacesAPI(title, color){
+
+    try{
+
+        return axios.post(
+            url_add_spaces,
+            {
+                "fields": {
+                  "title": {
+                    "stringValue": title
+                  },
+                  "color": {
+                    "stringValue": color
+                  }
+                }
+              }
+        )
+        .then(function(response){
+            return response.data.name.split("/space/")[1]
+        })
+
+    } catch(e){
+        console.error(e)
+    }
+
+}
