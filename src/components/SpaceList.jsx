@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'; // Importez Link depuis 'react-router-dom'
 import Space from './Space';
 import '../styles/space.css';
@@ -11,39 +11,34 @@ import { store } from '../redux/store';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import { setSpaces } from '../redux/space/SpaceSlice';
-import axios from 'axios';
+import {useNavigate} from 'react-router-dom'
+import { getSpaces } from '../api/SpaceAPI'
 export default function SpaceList() {
-  const spaceList = useSelector((state) => state.space.spaceList);
+  const spaces = useSelector((state) => state.space.spaceList);
   const [selectedSpaces, setSelectedSpaces] = useState([]);
   const [isFormVisible, setFormVisible] = useState(false);
 
 
 
-const [spaces, setSpaces] = useState([])
+const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID
-};
 
-useEffect(() => {
-  axios({
-    method: 'get',
-    url:'https://firestore.googleapis.com/v1/projects/'+firebaseConfig.projectId+'/databases/(default)/documents/space?key='+firebaseConfig.apiKey,
-    responseType:'json'
-  })
-  .then(function (response) {
-    console.log(response.data.documents)
-    setSpaces(response.data.documents)
-  })
-  .catch((error) => {
-    console.log(error)
-  })  
-})
+useEffect(()=>{
+  let connected = sessionStorage.getItem('connected') === 'true'
+
+  if(!connected){
+    return navigate('/login')
+  }
+
+  const fetchSpaces = async () => {
+      let spaces = await getSpaces()
+      dispatch(setSpaces(spaces))
+  }
+
+  fetchSpaces()
+
+}, [])
 
 
   const handleCheckboxChange = (spaceId) => {
@@ -91,16 +86,18 @@ useEffect(() => {
               isFormVisible={isFormVisible}
             /> 
             </Grid>
-        ))}
-          {/* {spaces.map((space, index)=> {
-            return (
-              <div key={index}>
-                <div>
-                  <p>{space.fields.title.stringValue}</p>
-                </div>
-              </div>
-            )
-          })} */}
+        ))}*/}
+         {spaces.map((space, index)=> {
+           return  <Grid xs={12} sm={6} md={4} lg={3} key={index}>
+             <Space
+               key={index}
+               space={space}
+               isSelected={selectedSpaces.includes(space.id)}
+               onCheckboxChange={() => handleCheckboxChange(space.id)}
+               isFormVisible={isFormVisible}
+             /> 
+             </Grid>
+          })} 
   
         </Grid>
       </Box>
