@@ -50,7 +50,7 @@ export function deleteTablesAPI(id){
 
 const url_add_table = "https://firestore.googleapis.com/v1/projects/" + import.meta.env.VITE_PROJECT_ID + "/databases/(default)/documents/table?key=" + import.meta.env.VITE_API_KEY
 
-export function addTableAPI(title, spaceId, order){
+export function addTableAPI(title, spaceId, order, color){
 
     try{
 
@@ -66,6 +66,9 @@ export function addTableAPI(title, spaceId, order){
                   },
                   "order": {
                     "integerValue": order
+                  },
+                  "color": {
+                    "stringValue": color
                   }
                 }
               }
@@ -81,12 +84,16 @@ export function addTableAPI(title, spaceId, order){
 }
 
 
-export function updateTableAPI(id, title, spaceId, order){
+export function updateTableAPI(id, title, spaceId, order, color){
 
     const url_update_table = "https://firestore.googleapis.com/v1/projects/" + import.meta.env.VITE_PROJECT_ID + "/databases/(default)/documents/table/" + id + "?key=" + import.meta.env.VITE_API_KEY
 
     try{
-
+      // console.log('ID de la table :', id);
+      // console.log('Titre :', title);
+      // console.log('ID de l\'espace :', spaceId);
+      // console.log('Ordre :', order);
+      // console.log('Couleur :', color);
         return axios.patch(
             url_update_table,
             {
@@ -99,16 +106,21 @@ export function updateTableAPI(id, title, spaceId, order){
                   },
                   "order": {
                     "integerValue": order
+                  },
+                  "color": {
+                    "stringValue": color
                   }
                 }
               }
         )
+        
         .then(function(response){
             console.log(response)
         })
 
     } catch(e){
         console.error(e)
+
     }
 
 }

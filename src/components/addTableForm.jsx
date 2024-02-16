@@ -7,33 +7,43 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
 import { v4 as uuidv4 } from 'uuid';
-
+import { addTableAPI } from '../api/TableAPI'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 const AddTableForm = ({ spaceId }) => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newTableTitle, setNewTableTitle] = useState('');
   const [editedSpaceColor, setEditedSpaceColor] = useState('');
+  const tables = useSelector((state) => state.table.tablesList)
   const handleButtonClick = () => {
     setPopinVisible(!isPopinVisible);
   };
+  const { id } = useParams()
+  const getOrderNewTable = (spaceId) =>{
 
-  const handleFormSubmit = (e) => {
+    let ts = []
+
+    for(let t of tables){
+        if(t.spaceId.toString() === spaceId.toString()){
+            ts.push(t)
+        }
+    }
+
+    return ts.length + 1
+}
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (newTableTitle.trim() === '') {
       showMessage('Veuillez remplir le nom de votre tableau !', 'error');
       return;
     }
-   
-    const newTable = {
-      id: uuidv4(),
-      title: newTableTitle,
-      spaceId: parseInt(spaceId),
-      color: editedSpaceColor,
-    };
-    store.dispatch(addTable(newTable)); 
+    let newTableId = await addTableAPI(newTableTitle, id, getOrderNewTable(id), editedSpaceColor)
+    store.dispatch(addTable({id: newTableId, title : newTableTitle, spaceId: id, order: getOrderNewTable(id), color : editedSpaceColor})); 
     setNewTableTitle('');
     setEditedSpaceColor('');
     setPopinVisible(false);
     showMessage('Tableau ajouté avec succès !', 'success');
+   
   };
 
   const handleClose = () => {

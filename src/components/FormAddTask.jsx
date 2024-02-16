@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
+import { addTaskAPI } from '../api/TaskApi.js'
 export default function FormAddTask({ tableId }) {
   const [newTableTask, setNewTableTask] = useState('');
   const [isPopinVisible, setPopinVisible] = useState(false);
@@ -21,7 +22,7 @@ export default function FormAddTask({ tableId }) {
       showMessage('Veuillez remplir le nom de votre tâche !', 'error');
       return;
     }
-
+    addTaskAPI(newTableTask, tableId, editedSpaceColor)
     store.dispatch(addTask({ tableId, taskContent: newTableTask, color : editedSpaceColor  }));
     showMessage('Tâche ajoutée avec succès !', 'success');
     setNewTableTask('');

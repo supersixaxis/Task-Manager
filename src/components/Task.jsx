@@ -3,7 +3,8 @@ import EditTaskForm from './EditTaskForm';
 import { deleteTask} from '../redux/task/TaskSlice';
 import { store } from '../redux/Store';
 import { showMessage } from '../utils/MessageUtils.js';
-export default function Task({ task, onDragStart  }) {
+import { deleteTaskAPI } from '../api/TaskApi.js'
+export default function Task({ task, onDragStart, tableId  }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDragStart = (e) => {
@@ -23,6 +24,7 @@ export default function Task({ task, onDragStart  }) {
       {isEditing ? (
         <EditTaskForm
           taskId={task.id}
+          tableId={tableId}
           initialTitle={task.title}
           setIsEditing={setIsEditing}
         />
@@ -33,6 +35,7 @@ export default function Task({ task, onDragStart  }) {
           <button
           className="taskButton"
           onClick={() => {
+            deleteTaskAPI(task.id)
             store.dispatch(deleteTask(task.id));
             showMessage('Tâche supprimée avec succès !', 'success');
           }}

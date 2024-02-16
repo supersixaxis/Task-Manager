@@ -5,7 +5,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
-export default function EditTaskForm({ initialTitle, taskId, setIsEditing }) {
+import { updateTaskAPI } from '../api/TaskApi.js'
+export default function EditTaskForm({ initialTitle, taskId, setIsEditing, tableId }) {
   const [editedTaskTitle, setEditedTaskTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
   const [editedSpaceColor, setEditedSpaceColor] = useState('');
@@ -13,6 +14,7 @@ export default function EditTaskForm({ initialTitle, taskId, setIsEditing }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    updateTaskAPI(taskId, editedTaskTitle, tableId, editedSpaceColor)
     store.dispatch(editTask({ taskId, newTitle: editedTaskTitle, color: editedSpaceColor }));
     setIsEditing(false);
     setPopinVisible(false);

@@ -70,6 +70,7 @@ export default function Table({
         <Task
           key={task.id}
           task={task}
+          tableId={table.id}
           onDragStart={(e) => onDragStart(e, task)}
         />
       ))}

@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { editTableTitle } from '../redux/table/TableSlice';
 import { store } from '../redux/Store';
 import { showMessage } from '../utils/MessageUtils.js'
+import { updateTableAPI } from '../api/TableAPI'
 import '../styles/tables.css'
+import { useParams } from 'react-router-dom'
 export default function EditTableForm({  initialTitle, initialColor, tableId, setIsEditingTitle }) {
   const [editedTabTitle, setEditedTabTitle] = useState(initialTitle);
   const [isPopinVisible, setPopinVisible] = useState(true);
   const [editedSpaceColor, setEditedSpaceColor] = useState(initialColor);
-  const handleSubmit = (e) => {
+  const { id } = useParams()
+  const order = 0;
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await updateTableAPI(tableId,editedTabTitle, id, order, editedSpaceColor)
+   
     store.dispatch(
       editTableTitle({ id: tableId, newTitle: editedTabTitle, newColor: editedSpaceColor })
     );

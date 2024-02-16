@@ -12,7 +12,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import { setSpaces } from '../redux/space/SpaceSlice';
 import {useNavigate} from 'react-router-dom'
-import { getSpaces } from '../api/SpaceAPI'
+import { getSpaces, deleteSpacesAPI } from '../api/SpaceAPI'
+import { deleteTablesAPI } from '../api/TableApi'
 export default function SpaceList() {
   const spaces = useSelector((state) => state.space.spaceList);
   const [selectedSpaces, setSelectedSpaces] = useState([]);
@@ -52,6 +53,7 @@ useEffect(()=>{
   };
 
   const handleDeleteSpaces = () => {
+    deleteSpacesAPI(selectedSpaces)
     store.dispatch(deleteSpaces(selectedSpaces));
        selectedSpaces.forEach((space) => {
       store.dispatch(deleteTablesBySpaceId(space.id));

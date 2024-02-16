@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
+import { deleteTablesAPI } from '../api/TableAPI'
 const SelectTableDelete = ({ tables }) => {
   const [idTableSelected, setIdTableSelected] = useState(0);
   const [isPopinVisible, setPopinVisible] = useState(false);
@@ -19,7 +20,7 @@ const SelectTableDelete = ({ tables }) => {
       showMessage('Veuillez sélectionner un tableau à supprimer', 'error');
       return;
     }
-  
+    deleteTablesAPI(idTableSelected)
     store.dispatch(deleteTable(idTableSelected));
     const existingTables = JSON.parse(localStorage.getItem('tables')) || [];
     const updatedTables = existingTables.filter(table => table.id !== idTableSelected);
