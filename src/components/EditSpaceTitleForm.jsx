@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { editSpaceTitle } from '../redux/space/SpaceSlice';
 import { store } from '../redux/Store';
 import { showMessage } from '../utils/MessageUtils.js'
-
+import { updateSpacesAPI } from '../api/SpaceAPI'
 export default function EditSpaceTitleForm({  initialTitle, spaceId,  initialColor, setIsEditingSpaceTitle }) {
     const [editedSpaceTitle, setEditedSpaceTitle] = useState(initialTitle);
     const [isPopinVisible, setPopinVisible] = useState(true);
     const [editedSpaceColor, setEditedSpaceColor] = useState(initialColor);
     const handleSubmit = (e) => {
         e.preventDefault();
+        updateSpacesAPI(spaceId, editedSpaceTitle, editedSpaceColor)
         store.dispatch(
           editSpaceTitle({ id: spaceId, newTitle: editedSpaceTitle, newColor: editedSpaceColor })
         );
+   
         showMessage('Projet modifié avec succès !', 'success');
         setIsEditingSpaceTitle(false)
         setPopinVisible(false);
