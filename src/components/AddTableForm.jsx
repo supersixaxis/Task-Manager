@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
-import { addTableAPI } from '../api/TableAPI'
+import { addTableAPI } from '../api/TableApi.js'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 const AddTableForm = ({ spaceId }) => {

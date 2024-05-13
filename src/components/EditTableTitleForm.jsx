@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { editTableTitle } from '../redux/table/TableSlice';
 import { store } from '../redux/store.js';
 import { showMessage } from '../utils/MessageUtils.js'
-import { updateTableAPI } from '../api/TableAPI'
+import { updateTableAPI } from '../api/TableApi.js'
 import '../styles/tables.css'
 import { useParams } from 'react-router-dom'
 export default function EditTableForm({  initialTitle, initialColor, tableId, setIsEditingTitle }) {

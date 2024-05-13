@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
-import { deleteTablesAPI } from '../api/TableAPI'
+import { deleteTablesAPI } from '../api/TableApi.js'
 const SelectTableDelete = ({ tables }) => {
   const [idTableSelected, setIdTableSelected] = useState(0);
   const [isPopinVisible, setPopinVisible] = useState(false);
