@@ -33,6 +33,8 @@ export default function Login() {
         <button type='submit'>Connexion</button>
         </form>
       <h1>Connexion</h1>
+      <p>Identifiant test : nath@live.fr</p>
+      <p>Password test : 0000</p>
     </div>
   )
 }
