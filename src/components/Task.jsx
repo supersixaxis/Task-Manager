@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditTaskForm from './EditTaskForm';
 import { deleteTask} from '../redux/task/TaskSlice';
-import { store } from '../redux/Store';
+import { store } from '../redux/store.js';
 import { showMessage } from '../utils/MessageUtils.js';
 import { deleteTaskAPI } from '../api/TaskApi.js'
 export default function Task({ task, onDragStart, tableId  }) {

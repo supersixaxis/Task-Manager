@@ -1,7 +1,7 @@
 import React from 'react'
 import { hideMessage } from '../redux/message/MessageSlice'
 import { useSelector } from 'react-redux'
-import { store } from '../redux/store'
+import { store } from '../redux/store.js'
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 //import Snackbar from '@mui/material/Snackbar';

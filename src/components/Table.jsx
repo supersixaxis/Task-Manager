@@ -3,7 +3,7 @@ import Task from './Task';
 import EditTableTitleForm from './EditTableTitleForm';
 import FormAddTask from './FormAddTask';
 import { moveTable } from '../redux/table/TableSlice';
-import { store } from '../redux/Store';
+import { store } from '../redux/store.js';
 import { moveTask } from '../redux/task/TaskSlice';
 import edit from '../assets/edit.svg'
 

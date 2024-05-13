@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { editTableTitle } from '../redux/table/TableSlice';
-import { store } from '../redux/Store';
+import { store } from '../redux/store.js';
 import { showMessage } from '../utils/MessageUtils.js'
 import { updateTableAPI } from '../api/TableAPI'
 import '../styles/tables.css'

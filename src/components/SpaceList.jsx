@@ -7,7 +7,7 @@ import AddSpaceForm from './AddSpaceForm'
 import React, { useState, useEffect } from 'react';
 import { deleteSpaces } from '../redux/space/SpaceSlice';
 import { deleteTablesBySpaceId } from '../redux/table/TableSlice'
-import { store } from '../redux/store';
+import { store } from '../redux/store.js';
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import { setSpaces } from '../redux/space/SpaceSlice';

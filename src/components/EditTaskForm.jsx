@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { editTask } from '../redux/task/TaskSlice';
-import { store } from '../redux/store';
+import { store } from '../redux/store.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';

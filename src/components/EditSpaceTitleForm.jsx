@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { editSpaceTitle } from '../redux/space/SpaceSlice';
-import { store } from '../redux/Store';
+import { store } from '../redux/store.js';
 import { showMessage } from '../utils/MessageUtils.js'
 import { updateSpacesAPI } from '../api/SpaceAPI'
 export default function EditSpaceTitleForm({  initialTitle, spaceId,  initialColor, setIsEditingSpaceTitle }) {

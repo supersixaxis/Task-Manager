@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { store } from '../redux/store';
+import { store } from '../redux/store.js';
 import { addTask } from '../redux/task/TaskSlice';
 import { showMessage } from '../utils/MessageUtils.js';
 import Modal from '@mui/material/Modal';
