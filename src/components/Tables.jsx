@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom';
 import { setTables } from '../redux/table/TableSlice'
 import { setTasks } from '../redux/task/TaskSlice'
-import { getTables } from '../api/TableAPI'
+import { getTables } from '../api/TableApi'
 import { getTasks } from '../api/TaskAPI'
 function Tables() {
   const tables = useSelector((state) => state.table.tablesList);
