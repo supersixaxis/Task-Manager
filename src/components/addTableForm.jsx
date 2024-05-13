@@ -6,7 +6,6 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import style from './styleModal';
-import { v4 as uuidv4 } from 'uuid';
 import { addTableAPI } from '../api/TableAPI'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
