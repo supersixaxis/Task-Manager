@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { store } from '../redux/store.js';
 import { addSpace } from '../redux/space/SpaceSlice';
 import { showMessage } from '../utils/MessageUtils.js';
-import { v4 as uuidv4 } from 'uuid';
-import { addSpacesAPI } from '../api/SpaceAPI'
+import { addSpacesAPI } from '../api/SpaceApi.js'
 const AddSpaceForm = () => {
   const [isPopinVisible, setPopinVisible] = useState(false);
   const [newSpaceTitle, setNewSpaceTitle] = useState('');

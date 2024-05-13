@@ -12,7 +12,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import { setSpaces } from '../redux/space/SpaceSlice';
 import {useNavigate} from 'react-router-dom'
-import { getSpaces, deleteSpacesAPI } from '../api/SpaceApi'
+import { getSpaces, deleteSpacesAPI } from '../api/SpaceApi.js'
 export default function SpaceList() {
   const spaces = useSelector((state) => state.space.spaceList);
   const [selectedSpaces, setSelectedSpaces] = useState([]);
